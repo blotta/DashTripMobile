@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="White"
+             x:Class="DashTripMobile.Views.TripsPage">
+
+    <Grid RowDefinitions="*,Auto,Auto,*">
+
+        <Label
+            x:Name="LabelCount"
+            Grid.Row="1"
+            BackgroundColor="Orange"
+            FontSize="Large"
+            HorizontalOptions="Center"
+            Text="Welcome to Xamarin.Forms!" />
+
+        <Button
+            x:Name="ButtonClick"
+            Clicked="ButtonClick_Clicked"
+            Grid.Row="2"
+            Text="Click Me" />
+
+    </Grid>
+</ContentPage>
