@@ -10,14 +10,39 @@ namespace DashTripMobile.Services
     public class MockDashTripStore : IDashTripDataStore
     {
         readonly List<Vehicle> vehicles;
+        readonly List<Trip> trips;
         public MockDashTripStore()
         {
             vehicles = new List<Vehicle>()
             {
-                new Vehicle { Id = Guid.NewGuid().ToString(), Name = "VW Golf", Type = "Carro" }
+                new Vehicle { Id = Guid.NewGuid().ToString(), Name = "VW Golf", Type = VehicleType.Car }
             };
+
+            trips = new List<Trip>()
+            {
+                new Trip {
+                    Id = Guid.NewGuid().ToString(),
+                    CreatedAt = DateTimeOffset.Parse("2022-04-01 09:15"),
+                    FinishedAt = DateTimeOffset.Parse("2022-04-01 10:23"),
+                    TransportType = TransportType.Walking,
+                    Vehicle = null,
+                    StartAddress = "Av Paulista, 123",
+                    FinishAddress = "Rua da Paz 1022"
+                },
+                new Trip {
+                    Id = Guid.NewGuid().ToString(),
+                    CreatedAt = DateTimeOffset.Parse("2022-04-01 09:45"),
+                    FinishedAt = DateTimeOffset.Parse("2022-04-01 10:00"),
+                    TransportType = TransportType.Vehicle,
+                    Vehicle = vehicles.First(),
+                    StartAddress = "Av Paulista, 123",
+                    FinishAddress = "Rua da Paz 1022"
+                }
+            };
+
         }
 
+        // Vehicles
         public async Task<bool> AddVehicleAsync(Vehicle item)
         {
             vehicles.Add(item);
@@ -52,5 +77,41 @@ namespace DashTripMobile.Services
             return await Task.FromResult(vehicles);
         }
 
+
+
+        // Trips
+        public async Task<bool> AddTripAsync(Trip item)
+        {
+            trips.Add(item);
+
+            return await Task.FromResult(true);
+        }
+
+        public async Task<bool> UpdateTripAsync(Trip item)
+        {
+            var oldItem = trips.Where((Trip arg) => arg.Id == item.Id).FirstOrDefault();
+            trips.Remove(oldItem);
+            trips.Add(item);
+
+            return await Task.FromResult(true);
+        }
+
+        public async Task<bool> DeleteTripAsync(string id)
+        {
+            var oldItem = trips.Where((Trip arg) => arg.Id == id).FirstOrDefault();
+            trips.Remove(oldItem);
+
+            return await Task.FromResult(true);
+        }
+
+        public async Task<Trip> GetTripAsync(string id)
+        {
+            return await Task.FromResult(trips.FirstOrDefault(s => s.Id == id));
+        }
+
+        public async Task<IEnumerable<Trip>> GetTripsAsync(bool forceRefresh = false)
+        {
+            return await Task.FromResult(trips);
+        }
     }
 }

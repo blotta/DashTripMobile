@@ -17,6 +17,7 @@ namespace DashTripMobile.ViewModels
         public ObservableCollection<Vehicle> Vehicles { get; }
         public Command LoadVehiclesCommand { get; }
         public Command AddVehicleCommand { get; }
+        public Command CancelCommand { get; }
         public Command<Vehicle> VehicleTapped { get; }
 
         public VehiclesViewModel()
@@ -28,6 +29,12 @@ namespace DashTripMobile.ViewModels
             VehicleTapped = new Command<Vehicle>(OnVehicleSelected);
 
             AddVehicleCommand = new Command(OnAddVehicle);
+            CancelCommand = new Command(OnCancel);
+        }
+
+        private async void OnCancel()
+        {
+            await Shell.Current.GoToAsync("..");
         }
 
         async Task ExecuteLoadVehiclesCommand()

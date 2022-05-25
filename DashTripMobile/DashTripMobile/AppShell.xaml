@@ -78,12 +78,25 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
+    <Shell.FlyoutHeader>
+        <Grid RowDefinitions="Auto" BackgroundColor="{StaticResource Primary}">
+            <Label
+                x:Name="LabelCount"
+                Grid.Row="1"
+                TextColor="White"
+                FontSize="Large"
+                Margin="30"
+                HorizontalOptions="Start"
+                Text="DashTrip" />
+        </Grid>
+    </Shell.FlyoutHeader>
+
     <FlyoutItem Title="Resumo">
-        <ShellContent Route="TripsPage" ContentTemplate="{DataTemplate local:TripsPage}" />
+        <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Novo Percursos">
-        <ShellContent Route="TripsPage" ContentTemplate="{DataTemplate local:TripsPage}" />
+    <FlyoutItem Title="Novo Percurso">
+        <ShellContent Route="NewTripPage" ContentTemplate="{DataTemplate local:NewTripPage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Meus Percursos">
@@ -93,6 +106,7 @@
     <FlyoutItem Title="Meus Veículos">
         <ShellContent Route="VehiclesPage" ContentTemplate="{DataTemplate local:VehiclesPage}" />
     </FlyoutItem>
+
     
 
 </Shell>

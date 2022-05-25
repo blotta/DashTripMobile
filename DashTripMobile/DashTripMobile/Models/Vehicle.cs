@@ -8,8 +8,8 @@ namespace DashTripMobile.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        // public VehicleType Type { get; set; }
-        public string Type { get; set; }
+        public VehicleType Type { get; set; }
+        // public string Type { get; set; }
     }
 
     public enum VehicleType

@@ -7,7 +7,7 @@
              x:Class="DashTripMobile.Views.VehiclesPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddVehicleCommand}" />
+        <ToolbarItem Text="Adicionar" Command="{Binding AddVehicleCommand}" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

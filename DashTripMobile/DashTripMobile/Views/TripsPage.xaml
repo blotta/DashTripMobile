@@ -1,24 +1,96 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="White"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:DashTripMobile.ViewModels"  
+             xmlns:model="clr-namespace:DashTripMobile.Models"  
              x:Class="DashTripMobile.Views.TripsPage">
 
-    <Grid RowDefinitions="*,Auto,Auto,*">
 
-        <Label
-            x:Name="LabelCount"
-            Grid.Row="1"
-            BackgroundColor="Orange"
-            FontSize="Large"
-            HorizontalOptions="Center"
-            Text="Welcome to Xamarin.Forms!" />
+    <ContentPage.Content>
 
-        <Button
-            x:Name="ButtonClick"
-            Clicked="ButtonClick_Clicked"
-            Grid.Row="2"
-            Text="Click Me" />
+        <Grid>
+            
+            <RefreshView x:DataType="local:TripsViewModel" Command="{Binding LoadTripsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <CollectionView x:Name="TripsListView"
+                        ItemsSource="{Binding Trips}"
+                        SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"  />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout BackgroundColor="LightGray" Padding="10" x:DataType="model:Trip">
 
-    </Grid>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="CenterAndExpand"
+                                           Text="{Binding DurationFormated}" 
+                                           FontSize="25"
+                                           FontAttributes="Bold"
+                                           LineBreakMode="NoWrap" 
+                                           Style="{DynamicResource ListItemTextStyle}" 
+                                           />
+
+                                    <Label Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding CreatedAt, StringFormat='{0:dd/MM/yyyy hh:mm}'}" 
+                                           HorizontalOptions="End"
+                                           VerticalOptions="CenterAndExpand"
+                                           LineBreakMode="NoWrap" 
+                                           Style="{DynamicResource ListItemTextStyle}" 
+                                           FontSize="16" />
+                                    <Label Grid.Row="1" Grid.Column="1"
+                                           Text="{Binding FinishedAt, StringFormat='Término: {0:t}'}" 
+                                           HorizontalOptions="End"
+                                           VerticalOptions="CenterAndExpand"
+                                           LineBreakMode="NoWrap" 
+                                           Style="{DynamicResource ListItemTextStyle}" 
+                                           FontSize="16" />
+
+                                    <Label Grid.Row="2" Grid.ColumnSpan="2"
+                                           HorizontalOptions="CenterAndExpand"
+                                           Padding="0,3,0,3"
+                                           Text="{Binding TransportInfo}" 
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemTextStyle}"
+                                           FontSize="16" />
+
+                                    <Label Grid.Row="3"
+                                        Text="{Binding StartAddress, StringFormat='Origem: {0}'}" 
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="13" />
+                                    <Label Grid.Row="4"
+                                        Text="{Binding FinishAddress, StringFormat='Destino: {0}'}" 
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="13" />
+                                </Grid>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:TripsViewModel}}, Path=TripTapped}"		
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

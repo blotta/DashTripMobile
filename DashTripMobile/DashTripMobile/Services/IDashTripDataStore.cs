@@ -12,5 +12,12 @@ namespace DashTripMobile.Services
         Task<bool> DeleteVehicleAsync(string id);
         Task<Vehicle> GetVehicleAsync(string id);
         Task<IEnumerable<Vehicle>> GetVehiclesAsync(bool forceRefresh = false);
+
+
+        Task<bool> AddTripAsync(Trip item);
+        Task<bool> UpdateTripAsync(Trip item);
+        Task<bool> DeleteTripAsync(string id);
+        Task<Trip> GetTripAsync(string id);
+        Task<IEnumerable<Trip>> GetTripsAsync(bool forceRefresh = false);
     }
 }

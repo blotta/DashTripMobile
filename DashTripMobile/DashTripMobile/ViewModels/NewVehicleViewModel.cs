@@ -10,7 +10,10 @@ namespace DashTripMobile.ViewModels
     {
         private string name;
         // private VehicleType type;
-        private string type;
+        // private string type;
+
+        public string[] VehicleTypes { get; set; }
+        public VehicleType vtype;
 
         public NewVehicleViewModel()
         {
@@ -18,7 +21,11 @@ namespace DashTripMobile.ViewModels
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
+
+            VehicleTypes = Enum.GetNames(typeof(VehicleType));
+
         }
+
 
         private bool ValidateSave()
         {
@@ -31,16 +38,24 @@ namespace DashTripMobile.ViewModels
             set => SetProperty(ref name, value);
         }
 
-        public string Type
-        {
-            get => type;
-            set => SetProperty(ref type, value);
-        }
+        // public string Type
+        // {
+        //     get => type;
+        //     set => SetProperty(ref type, value);
+        // }
         // public VehicleType Type
         // {
         //     get => type;
         //     set => SetProperty(ref type, value);
         // }
+        public string VType
+        {
+            get => Enum.GetName(typeof(VehicleType), vtype);
+            set {
+                VehicleType t = (VehicleType)Enum.Parse(typeof(VehicleType), value);
+                SetProperty(ref vtype, t);
+            }
+        }
 
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
@@ -57,7 +72,7 @@ namespace DashTripMobile.ViewModels
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = Name,
-                Type = this.Type
+                Type = vtype
             };
 
             await DashTripDataStore.AddVehicleAsync(newVehicle);

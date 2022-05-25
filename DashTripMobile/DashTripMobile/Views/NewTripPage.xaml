@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DashTripMobile.Views.NewVehiclePage"
-             xmlns:xaml="clr-namespace:DashTripMobile.Xaml"
-             xmlns:local="clr-namespace:DashTripMobile.Views"
-             Title="Novo Veículo"
+             x:Class="DashTripMobile.Views.NewTripPage"
+             Title="{Binding Title}"
              >
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
-            <Label Text="Nome" FontSize="Medium" />
-            <Entry Text="{Binding Name, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Tipo" FontSize="Medium" />
-            <Picker Title="Selecione..." ItemsSource="{Binding VehicleTypes}" SelectedItem="{Binding VType}" />
+            <Label Text="Origem" FontSize="Medium" />
+            <Entry Text="{Binding StartAddress}" IsReadOnly="True" FontSize="Medium" />
+            <Label Text="Destino" FontSize="Medium" />
+            <Entry Text="{Binding FinishAddress, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="Meio de Transporte" FontSize="Medium" />
+            <Picker Title="Selecione..." ItemsSource="{Binding TransportTypes}" SelectedItem="{Binding TransportType}" />
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

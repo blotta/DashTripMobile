@@ -13,8 +13,11 @@ namespace DashTripMobile
             InitializeComponent();
             //Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             //Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
-            Routing.RegisterRoute(nameof(VehiclesPage), typeof(VehiclesPage));
+            // Routing.RegisterRoute(nameof(VehiclesPage), typeof(VehiclesPage));
             Routing.RegisterRoute(nameof(NewVehiclePage), typeof(NewVehiclePage));
+            // Routing.RegisterRoute(nameof(TripsPage), typeof(TripsPage));
+            // Routing.RegisterRoute(nameof(NewTripPage), typeof(NewTripPage));
+            Routing.RegisterRoute(nameof(DuringTripPage), typeof(DuringTripPage));
         }
 
         //private async void OnMenuItemClicked(object sender, EventArgs e)
